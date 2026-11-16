@@ -1,0 +1,2910 @@
+<!DOCTYPE html>
+
+<html lang="uk">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+
+        name="viewport"
+
+        content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+
+    >
+
+    <meta name="theme-color" content="#070b15">
+
+    <meta name="color-scheme" content="dark">
+
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <meta name="format-detection" content="telephone=no">
+
+    <meta
+
+        name="apple-mobile-web-app-capable"
+
+        content="yes"
+
+    >
+
+    <meta
+
+        name="apple-mobile-web-app-status-bar-style"
+
+        content="black-translucent"
+
+    >
+
+    <meta
+
+        name="apple-mobile-web-app-title"
+
+        content="My Mone"
+
+    >
+
+    <title>My Mone</title>
+
+    <link rel="manifest" href="manifest.json">
+
+    <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+
+    <link
+
+        rel="apple-touch-icon"
+
+        href="icons/apple-touch-icon.png"
+
+    >
+
+    <link
+
+        rel="stylesheet"
+
+        href="style.css"
+
+    >
+
+</head>
+
+<body>
+
+<div id="app">
+
+    <!-- =====================================================
+
+         HEADER
+
+    ====================================================== -->
+
+    <header class="top-header">
+
+        <div class="header-left">
+
+            <div class="header-avatar" id="header-avatar">
+
+                M
+
+            </div>
+
+            <div>
+
+                <div class="header-subtitle">
+
+                    Привіт 👋
+
+                </div>
+
+                <div class="header-name" id="header-name">
+
+                    Микола
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <button
+
+            class="header-button"
+
+            onclick="showPage('settings')"
+
+            aria-label="Налаштування"
+
+        >
+
+            ⚙️
+
+        </button>
+
+    </header>
+
+    <!-- =====================================================
+
+         MAIN CONTENT
+
+    ====================================================== -->
+
+    <main class="app-content">
+
+        <!-- =================================================
+
+             HOME
+
+        ================================================== -->
+
+        <section id="page-home" class="page active">
+
+            <div id="backup-banner" class="backup-banner" style="display:none;">
+
+                <span class="backup-banner-icon">💾</span>
+
+                <div id="backup-banner-text" class="backup-banner-text"></div>
+
+                <button class="backup-banner-button" onclick="exportData()">Зберегти</button>
+
+                <button class="backup-banner-close" onclick="snoozeBackupBanner()" aria-label="Нагадати пізніше">×</button>
+
+            </div>
+
+            <div class="balance-card">
+
+                <div class="balance-top">
+
+                    <span class="balance-label">Баланс</span>
+
+                    <span class="balance-month">Цей місяць</span>
+
+                </div>
+
+                <div id="balance-value" class="balance-value">0 ₴</div>
+
+                <div class="balance-row">
+
+                    <div class="balance-stat">
+
+                        <div class="balance-stat-label">Доходи</div>
+
+                        <div class="balance-stat-value" id="home-income">0 ₴</div>
+
+                    </div>
+
+                    <div class="balance-stat">
+
+                        <div class="balance-stat-label">Витрати</div>
+
+                        <div class="balance-stat-value" id="home-expenses">0 ₴</div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- QUICK ACTIONS -->
+
+            <div class="section-title">
+
+                Швидкі дії
+
+            </div>
+
+            <div class="quick-actions">
+
+                <button
+
+                    class="quick-action expense"
+
+                    onclick="openExpenseModal()"
+
+                >
+
+                    <span class="quick-icon">
+
+                        −
+
+                    </span>
+
+                    <span class="quick-title">Витрата</span>
+
+                </button>
+
+                <button
+
+                    class="quick-action income"
+
+                    onclick="openIncomeModal()"
+
+                >
+
+                    <span class="quick-icon">
+
+                        +
+
+                    </span>
+
+                    <span class="quick-title">Дохід</span>
+
+                </button>
+
+                <button
+
+                    class="quick-action budget"
+
+                    onclick="openBudgetModal()"
+
+                >
+
+                    <span class="quick-icon">
+
+                        ◉
+
+                    </span>
+
+                    <span class="quick-title">Бюджет</span>
+
+                </button>
+
+            </div>
+
+            <!-- MONTHLY BUDGET -->
+
+            <div class="section-title">
+
+                Бюджет
+
+            </div>
+
+            <div class="card budget-card">
+
+                <div class="card-row">
+
+                    <div>
+
+                        <span class="muted">
+
+                            Місячний бюджет
+
+                        </span>
+
+                        <strong id="home-budget">
+
+                            0 ₴
+
+                        </strong>
+
+                    </div>
+
+                    <div class="budget-percent" id="home-budget-percent">
+
+                        0%
+
+                    </div>
+
+                </div>
+
+                <div class="progress">
+
+                    <div
+
+                        id="home-budget-progress"
+
+                        class="progress-bar"
+
+                        style="width: 0%"
+
+                    ></div>
+
+                </div>
+
+                <div class="budget-info">
+
+                    <span>
+
+                        Витрачено
+
+                        <strong id="home-budget-spent">
+
+                            0 ₴
+
+                        </strong>
+
+                    </span>
+
+                    <span>
+
+                        Залишилось
+
+                        <strong id="home-budget-left">
+
+                            0 ₴
+
+                        </strong>
+
+                    </span>
+
+                </div>
+
+            </div>
+
+            <!-- RECENT -->
+
+            <div class="section-header">
+
+                <div class="section-title no-margin">
+
+                    Останні операції
+
+                </div>
+
+                <button
+
+                    class="text-button"
+
+                    onclick="showPage('transactions')"
+
+                >
+
+                    Усі
+
+                </button>
+
+            </div>
+
+            <div
+
+                id="home-transactions"
+
+                class="transactions-list"
+
+            >
+
+                <div class="empty-state">
+
+                    <div class="empty-icon">
+
+                        💸
+
+                    </div>
+
+                    <div>
+
+                        Поки немає операцій
+
+                    </div>
+
+                    <small>
+
+                        Додай першу витрату
+
+                    </small>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- =================================================
+
+             TRANSACTIONS
+
+        ================================================== -->
+
+        <section
+
+            id="page-transactions"
+
+            class="page"
+
+        >
+
+            <div class="page-title">
+
+                Операції
+
+            </div>
+
+            <!-- SEARCH -->
+
+            <div class="search-box">
+
+                <span>
+
+                    🔍
+
+                </span>
+
+                <input
+
+                    id="transaction-search"
+
+                    type="search"
+
+                    placeholder="Пошук операцій..."
+
+                    oninput="applyTransactionFilters()"
+
+                >
+
+            </div>
+
+            <!-- TYPE FILTER -->
+
+            <div class="filters">
+
+                <button
+
+                    class="filter-button active"
+
+                    data-type-filter="all"
+
+                    onclick="setTransactionTypeFilter('all')"
+
+                >
+
+                    Усі
+
+                </button>
+
+                <button
+
+                    class="filter-button"
+
+                    data-type-filter="expense"
+
+                    onclick="setTransactionTypeFilter('expense')"
+
+                >
+
+                    Витрати
+
+                </button>
+
+                <button
+
+                    class="filter-button"
+
+                    data-type-filter="income"
+
+                    onclick="setTransactionTypeFilter('income')"
+
+                >
+
+                    Доходи
+
+                </button>
+
+            </div>
+
+            <!-- CATEGORY FILTER -->
+
+            <div class="filters">
+
+                <button
+
+                    class="filter-button category-filter active"
+
+                    data-category-filter="all"
+
+                    onclick="setCategoryFilter('all')"
+
+                >
+
+                    Усі категорії
+
+                </button>
+
+                <button
+
+                    class="filter-button category-filter"
+
+                    data-category-filter="Їжа"
+
+                    onclick="setCategoryFilter('Їжа')"
+
+                >
+
+                    🍔 Їжа
+
+                </button>
+
+                <button
+
+                    class="filter-button category-filter"
+
+                    data-category-filter="Транспорт"
+
+                    onclick="setCategoryFilter('Транспорт')"
+
+                >
+
+                    🚍 Транспорт
+
+                </button>
+
+                <button
+
+                    class="filter-button category-filter"
+
+                    data-category-filter="Покупки"
+
+                    onclick="setCategoryFilter('Покупки')"
+
+                >
+
+                    🛍️ Покупки
+
+                </button>
+
+                <button
+
+                    class="filter-button category-filter"
+
+                    data-category-filter="Одяг"
+
+                    onclick="setCategoryFilter('Одяг')"
+
+                >
+
+                    👕 Одяг
+
+                </button>
+
+                <button
+
+                    class="filter-button category-filter"
+
+                    data-category-filter="Стіки"
+
+                    onclick="setCategoryFilter('Стіки')"
+
+                >
+
+                    🚬 Стіки
+
+                </button>
+
+                <button
+
+                    class="filter-button category-filter"
+
+                    data-category-filter="Розваги"
+
+                    onclick="setCategoryFilter('Розваги')"
+
+                >
+
+                    🎮 Розваги
+
+                </button>
+
+                <button
+
+                    class="filter-button category-filter"
+
+                    data-category-filter="Дім"
+
+                    onclick="setCategoryFilter('Дім')"
+
+                >
+
+                    🏠 Дім
+
+                </button>
+
+                <button
+
+                    class="filter-button category-filter"
+
+                    data-category-filter="Інше"
+
+                    onclick="setCategoryFilter('Інше')"
+
+                >
+
+                    📦 Інше
+
+                </button>
+
+            </div>
+
+            <!-- TRANSACTION SUMMARY -->
+
+            <div class="operation-summary">
+
+                <span id="operations-count">
+
+                    0 операцій
+
+                </span>
+
+                <strong id="operations-total">
+
+                    0 ₴
+
+                </strong>
+
+            </div>
+
+            <!-- LIST -->
+
+            <div
+
+                id="transactions-list"
+
+                class="transactions-list"
+
+            >
+
+                <div class="empty-state">
+
+                    <div class="empty-icon">
+
+                        📋
+
+                    </div>
+
+                    <div>
+
+                        Немає операцій
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- =================================================
+
+             ANALYTICS
+
+        ================================================== -->
+
+        <section
+
+            id="page-analytics"
+
+            class="page"
+
+        >
+
+            <div class="page-title">
+
+                Аналітика
+
+            </div>
+
+            <!-- MONTH SELECTOR -->
+
+            <div class="analytics-month-selector">
+
+                <button
+
+                    class="month-arrow"
+
+                    onclick="changeAnalyticsMonth(-1)"
+
+                >
+
+                    ‹
+
+                </button>
+
+                <div
+
+                    id="analytics-month-title"
+
+                    class="analytics-month-title"
+
+                >
+
+                    Вересень 2026
+
+                </div>
+
+                <button
+
+                    class="month-arrow"
+
+                    onclick="changeAnalyticsMonth(1)"
+
+                >
+
+                    ›
+
+                </button>
+
+            </div>
+
+            <!-- MODE -->
+
+            <div class="analytics-mode-selector">
+
+                <button
+
+                    id="analytics-mode-month"
+
+                    class="analytics-mode-button active"
+
+                    onclick="setAnalyticsMode('month')"
+
+                >
+
+                    Місяць
+
+                </button>
+
+                <button
+
+                    id="analytics-mode-compare"
+
+                    class="analytics-mode-button"
+
+                    onclick="setAnalyticsMode('compare')"
+
+                >
+
+                    Порівняння
+
+                </button>
+
+            </div>
+
+            <!-- =================================================
+
+                 NORMAL ANALYTICS
+
+            ================================================== -->
+
+            <div id="monthly-analytics-content">
+
+                <!-- TOTAL -->
+
+                <div class="analytics-main-card">
+
+                    <div class="muted">
+
+                        Витрачено за місяць
+
+                    </div>
+
+                    <div
+
+                        id="analytics-total"
+
+                        class="analytics-total"
+
+                    >
+
+                        0 ₴
+
+                    </div>
+
+                    <div
+
+                        id="analytics-month-description"
+
+                        class="analytics-description"
+
+                    >
+
+                        За цей місяць ще немає витрат
+
+                    </div>
+
+                </div>
+
+                <!-- SUMMARY -->
+
+                <div class="analytics-summary-grid">
+
+                    <div class="analytics-small-card">
+
+                        <span>
+
+                            Середня витрата
+
+                        </span>
+
+                        <strong id="analytics-average">
+
+                            0 ₴
+
+                        </strong>
+
+                    </div>
+
+                    <div class="analytics-small-card">
+
+                        <span>
+
+                            Найбільша
+
+                        </span>
+
+                        <strong id="analytics-biggest">
+
+                            0 ₴
+
+                        </strong>
+
+                    </div>
+
+                </div>
+
+                <!-- INSIGHTS -->
+
+                <div class="section-title">
+
+                    💡 Інсайти
+
+                </div>
+
+                <div
+
+                    id="analytics-insights"
+
+                    class="insights-list"
+
+                >
+
+                    <div class="insight-card">
+
+                        📊 Додай витрати, щоб отримати аналітику.
+
+                    </div>
+
+                </div>
+
+                <!-- CATEGORIES -->
+
+                <div class="section-header">
+
+                    <div class="section-title no-margin">
+
+                        Категорії
+
+                    </div>
+
+                    <span class="muted">
+
+                        Натисни на категорію
+
+                    </span>
+
+                </div>
+
+                <div
+
+                    id="analytics-categories"
+
+                    class="analytics-categories"
+
+                >
+
+                    <!-- JS inserts categories -->
+
+                </div>
+
+                <!-- CATEGORY DETAILS -->
+
+                <div
+
+                    id="analytics-category-details"
+
+                    class="category-details"
+
+                >
+
+                </div>
+
+                <!-- DAILY -->
+
+                <div class="section-title">
+
+                    Витрати по днях
+
+                </div>
+
+                <div class="chart-card">
+
+                    <div
+
+                        id="analytics-daily-chart"
+
+                        class="daily-chart"
+
+                    >
+
+                    </div>
+
+                </div>
+
+                <!-- TOP SUBCATEGORIES -->
+
+                <div class="section-title">
+
+                    Топ підкатегорій
+
+                </div>
+
+                <div
+
+                    id="analytics-subcategories"
+
+                    class="ranking-list"
+
+                >
+
+                </div>
+
+                <!-- SAVING POTENTIAL -->
+
+                <div class="section-title">
+
+                    💰 Потенціал економії
+
+                </div>
+
+                <div
+
+                    id="analytics-saving-potential"
+
+                    class="saving-list"
+
+                >
+
+                </div>
+
+            </div>
+
+            <!-- =================================================
+
+                 COMPARISON
+
+            ================================================== -->
+
+            <div
+
+                id="comparison-section"
+
+                class="comparison-section"
+
+                style="display: none;"
+
+            >
+
+                <div class="comparison-main-card">
+
+                    <div class="comparison-period">
+
+                        <div>
+
+                            <span>
+
+                                Поточний місяць
+
+                            </span>
+
+                            <strong id="comparison-current-month">
+
+                                Вересень 2026
+
+                            </strong>
+
+                        </div>
+
+                        <div class="comparison-arrow">
+
+                            VS
+
+                        </div>
+
+                        <div>
+
+                            <span>
+
+                                Попередній
+
+                            </span>
+
+                            <strong id="comparison-previous-month">
+
+                                Серпень 2026
+
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="comparison-result-card">
+
+                    <div class="muted">
+
+                        Різниця у витратах
+
+                    </div>
+
+                    <div
+
+                        id="comparison-difference"
+
+                        class="comparison-difference neutral"
+
+                    >
+
+                        0 ₴
+
+                    </div>
+
+                    <div
+
+                        id="comparison-percent"
+
+                        class="comparison-percent"
+
+                    >
+
+                        0%
+
+                    </div>
+
+                    <div
+
+                        id="comparison-message"
+
+                        class="comparison-message"
+
+                    >
+
+                        Поки недостатньо даних для порівняння.
+
+                    </div>
+
+                </div>
+
+                <!-- CATEGORY COMPARISON -->
+
+                <div class="section-title">
+
+                    Категорії
+
+                </div>
+
+                <div
+
+                    id="comparison-categories"
+
+                    class="comparison-categories"
+
+                >
+
+                </div>
+
+                <!-- TOTALS -->
+
+                <div class="comparison-summary-grid">
+
+                    <div class="comparison-small-card">
+
+                        <span>
+
+                            Поточний місяць
+
+                        </span>
+
+                        <strong id="comparison-current-total">
+
+                            0 ₴
+
+                        </strong>
+
+                    </div>
+
+                    <div class="comparison-small-card">
+
+                        <span>
+
+                            Попередній місяць
+
+                        </span>
+
+                        <strong id="comparison-previous-total">
+
+                            0 ₴
+
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- =================================================
+
+             INSTALLMENTS
+
+        ================================================== -->
+
+        <section
+
+            id="page-installments"
+
+            class="page"
+
+        >
+
+            <div class="page-title">
+
+                Оплата частинами
+
+            </div>
+
+            <div class="installment-intro">
+
+                <div class="installment-intro-icon">
+
+                    💳
+
+                </div>
+
+                <div>
+
+                    <strong>
+
+                        Твої покупки в ОЧ
+
+                    </strong>
+
+                    <p>
+
+                        Контролюй щомісячні платежі
+
+                        в одному місці.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+            <!-- BANK CARDS -->
+
+            <div class="section-title">
+
+                Банківські картки
+
+            </div>
+
+            <div
+
+                id="installment-banks"
+
+                class="bank-cards"
+
+            >
+
+                <!-- Картки банків малює app.js (renderBankCards) -->
+
+            </div>
+
+            <!-- INSTALLMENTS -->
+
+            <div class="section-header">
+
+                <div class="section-title no-margin">
+
+                    Мої покупки
+
+                </div>
+
+                <span
+
+                    id="installments-count"
+
+                    class="muted"
+
+                >
+
+                    0
+
+                </span>
+
+            </div>
+
+            <div
+
+                id="installments-list"
+
+                class="installment-list"
+
+            >
+
+                <div class="empty-state">
+
+                    <div class="empty-icon">
+
+                        💳
+
+                    </div>
+
+                    <div>
+
+                        Немає покупок в ОЧ
+
+                    </div>
+
+                    <small>
+
+                        Додай покупку через «Витрата»
+
+                    </small>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- =================================================
+
+             BUDGET
+
+        ================================================== -->
+
+        <section
+
+            id="page-budget"
+
+            class="page"
+
+        >
+
+            <div class="page-title">
+
+                Бюджет
+
+            </div>
+
+            <div class="budget-big-card">
+
+                <div class="muted">
+
+                    Місячний бюджет
+
+                </div>
+
+                <div
+
+                    id="budget-page-total"
+
+                    class="budget-page-total"
+
+                >
+
+                    0 ₴
+
+                </div>
+
+                <div class="progress">
+
+                    <div
+
+                        id="budget-page-progress"
+
+                        class="progress-bar"
+
+                        style="width: 0%"
+
+                    ></div>
+
+                </div>
+
+                <div class="budget-info">
+
+                    <span>
+
+                        Витрачено
+
+                        <strong id="budget-page-spent">
+
+                            0 ₴
+
+                        </strong>
+
+                    </span>
+
+                    <span>
+
+                        Залишилось
+
+                        <strong id="budget-page-left">
+
+                            0 ₴
+
+                        </strong>
+
+                    </span>
+
+                </div>
+
+                <button
+
+                    class="primary-button"
+
+                    onclick="openBudgetModal()"
+
+                >
+
+                    Змінити бюджет
+
+                </button>
+
+            </div>
+
+            <!-- CATEGORY BUDGET -->
+
+            <div class="section-title">
+
+                Витрати по категоріях
+
+            </div>
+
+            <div
+
+                id="budget-categories"
+
+                class="budget-category-list"
+
+            >
+
+            </div>
+
+            <!-- GOALS -->
+
+            <div class="section-header">
+
+                <div class="section-title no-margin">
+
+                    🎯 Цілі
+
+                </div>
+
+                <button
+
+                    class="text-button"
+
+                    onclick="openGoalModal()"
+
+                >
+
+                    + Додати
+
+                </button>
+
+            </div>
+
+            <div
+
+                id="goals-list"
+
+                class="goals-list"
+
+            >
+
+                <div class="empty-state">
+
+                    <div class="empty-icon">
+
+                        🎯
+
+                    </div>
+
+                    <div>
+
+                        Немає цілей
+
+                    </div>
+
+                    <small>
+
+                        Створи ціль для накопичення
+
+                    </small>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- =================================================
+
+             SETTINGS
+
+        ================================================== -->
+
+        <section
+
+            id="page-settings"
+
+            class="page"
+
+        >
+
+            <div class="page-title">
+
+                Налаштування
+
+            </div>
+
+            <!-- PROFILE -->
+
+            <div class="settings-profile card">
+
+                <div
+
+                    id="settings-avatar"
+
+                    class="settings-avatar"
+
+                >
+
+                    M
+
+                </div>
+
+                <div>
+
+                    <div class="muted">
+
+                        Твоє ім'я
+
+                    </div>
+
+                    <strong id="settings-current-name">
+
+                        Микола
+
+                    </strong>
+
+                </div>
+
+            </div>
+
+            <!-- PROFILE NAME -->
+
+            <div class="settings-group">
+
+                <div class="settings-label">
+
+                    Профіль
+
+                </div>
+
+                <div class="settings-card">
+
+                    <div class="settings-row">
+
+                        <span>
+
+                            Ім'я
+
+                        </span>
+
+                        <input
+
+                            id="settings-name"
+
+                            type="text"
+
+                            placeholder="Твоє ім'я"
+
+                        >
+
+                    </div>
+
+                    <button
+
+                        class="settings-action"
+
+                        onclick="saveUserName()"
+
+                    >
+
+                        Зберегти ім'я
+
+                    </button>
+
+                </div>
+
+            </div>
+
+            <!-- DATA -->
+
+            <div class="settings-group">
+
+                <div class="settings-label">
+
+                    Дані
+
+                </div>
+
+                <div class="settings-card">
+
+                    <button
+
+                        class="settings-row-button"
+
+                        onclick="exportData()"
+
+                    >
+
+                        <span>
+
+                            📤 Резервна копія (JSON)
+
+                        </span>
+
+                        <span>
+
+                            ›
+
+                        </span>
+
+                    </button>
+
+                    <button
+
+                        class="settings-row-button"
+
+                        onclick="exportCSV()"
+
+                    >
+
+                        <span>
+
+                            📊 Експорт у CSV (Excel)
+
+                        </span>
+
+                        <span>
+
+                            ›
+
+                        </span>
+
+                    </button>
+
+                    <label class="settings-row-button">
+
+                        <span>
+
+                            📥 Імпорт даних
+
+                        </span>
+
+                        <span>
+
+                            ›
+
+                        </span>
+
+                        <input
+
+                            id="import-file"
+
+                            type="file"
+
+                            accept=".json"
+
+                            onchange="importData(event)"
+
+                            hidden
+
+                        >
+
+                    </label>
+
+                    <button
+
+                        class="settings-row-button danger"
+
+                        onclick="clearAllData()"
+
+                    >
+
+                        <span>
+
+                            🗑️ Очистити всі дані
+
+                        </span>
+
+                        <span>
+
+                            ›
+
+                        </span>
+
+                    </button>
+
+                </div>
+
+            </div>
+
+            <!-- ABOUT -->
+
+            <div class="settings-group">
+
+                <div class="settings-label">
+
+                    Про застосунок
+
+                </div>
+
+                <div class="settings-card">
+
+                    <div class="settings-row">
+
+                        <span>
+
+                            My Mone
+
+                        </span>
+
+                        <span class="muted">
+
+                            v2.1
+
+                        </span>
+
+                    </div>
+
+                    <div class="settings-row">
+
+                        <span>
+
+                            Дані зберігаються
+
+                        </span>
+
+                        <span class="muted">
+
+                            На цьому пристрої
+
+                        </span>
+
+                    </div>
+
+                    <div class="settings-row">
+
+                        <span>Остання копія</span>
+
+                        <span class="muted" id="settings-last-backup">—</span>
+
+                    </div>
+
+                    <div class="settings-row">
+
+                        <span>Сховище</span>
+
+                        <span class="muted" id="settings-storage-status">—</span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- =====================================================
+
+         BOTTOM NAVIGATION
+
+    ====================================================== -->
+
+    <nav class="bottom-nav">
+
+        <button
+
+            class="nav-item active"
+
+            data-page="home"
+
+            onclick="showPage('home')"
+
+        >
+
+            <span class="nav-icon">
+
+                🏠
+
+            </span>
+
+            <span class="nav-label">Головна</span>
+
+        </button>
+
+        <button
+
+            class="nav-item"
+
+            data-page="transactions"
+
+            onclick="showPage('transactions')"
+
+        >
+
+            <span class="nav-icon">
+
+                💸
+
+            </span>
+
+            <span class="nav-label">Операції</span>
+
+        </button>
+
+        <button
+
+            class="nav-item"
+
+            data-page="analytics"
+
+            onclick="showPage('analytics')"
+
+        >
+
+            <span class="nav-icon">
+
+                📊
+
+            </span>
+
+            <span class="nav-label">Аналітика</span>
+
+        </button>
+
+        <button
+
+            class="nav-item"
+
+            data-page="installments"
+
+            onclick="showPage('installments')"
+
+        >
+
+            <span class="nav-icon">
+
+                💳
+
+            </span>
+
+            <span class="nav-label">ОЧ</span>
+
+        </button>
+
+        <button
+
+            class="nav-item"
+
+            data-page="budget"
+
+            onclick="showPage('budget')"
+
+        >
+
+            <span class="nav-icon">
+
+                🎯
+
+            </span>
+
+            <span class="nav-label">Бюджет</span>
+
+        </button>
+
+    </nav>
+
+</div>
+
+<!-- =========================================================
+
+     EXPENSE MODAL
+
+========================================================= -->
+
+<div
+
+    id="expense-modal"
+
+    class="modal"
+
+>
+
+    <div
+
+        class="modal-backdrop"
+
+        onclick="closeModal('expense-modal')"
+
+    ></div>
+
+    <div class="modal-content">
+
+        <div class="modal-handle"></div>
+
+        <div class="modal-header">
+
+            <h2>
+
+                Нова витрата
+
+            </h2>
+
+            <button
+
+                class="modal-close"
+
+                onclick="closeModal('expense-modal')"
+
+            >
+
+                ×
+
+            </button>
+
+        </div>
+
+        <div class="modal-body">
+
+            <!-- Швидке додавання: два поля + зрозумілі підказки -->
+
+            <div class="expense-welcome">
+
+                <span class="expense-welcome-icon" aria-hidden="true">✨</span>
+
+                <div>
+
+                    <strong>Витрата за кілька секунд</strong>
+
+                    <p>Вкажи суму та назву — категорію підберемо автоматично.</p>
+
+                </div>
+
+            </div>
+
+            <label class="expense-field-label" for="expense-amount">
+
+                <span class="expense-step">1</span> Скільки витратили?
+
+            </label>
+
+            <div class="amount-input-wrapper expense-amount-field">
+
+                <input
+
+                    id="expense-amount"
+
+                    type="text"
+
+                    inputmode="decimal"
+
+                    autocomplete="off"
+
+                    placeholder="0"
+
+                    aria-label="Сума витрати у гривнях"
+
+                >
+
+                <span>₴</span>
+
+            </div>
+
+            <label class="expense-field-label" for="expense-description">
+
+                <span class="expense-step">2</span> На що пішли гроші?
+
+            </label>
+
+            <div class="expense-description-field">
+
+                <input
+
+                    id="expense-description"
+
+                    class="form-input"
+
+                    type="text"
+
+                    placeholder="Наприклад: таксі або 200 таксі"
+
+                    autocomplete="off"
+
+                    maxlength="140"
+
+                    oninput="onExpenseDescriptionInput()"
+
+                >
+
+                <button
+
+                    id="expense-clear-description"
+
+                    class="expense-input-clear"
+
+                    type="button"
+
+                    aria-label="Очистити опис витрати"
+
+                    onclick="clearExpenseDescription()"
+
+                    hidden
+
+                >×</button>
+
+            </div>
+
+            <div id="expense-smart-hint" class="expense-smart-hint">
+
+                Можна написати просто <strong>200 таксі</strong> в одному полі — суму заповнимо самі.
+
+            </div>
+
+            <div class="expense-chip-heading">Спробуй одним натисканням</div>
+
+            <div id="expense-presets" class="expense-presets" aria-label="Популярні витрати"></div>
+
+            <div id="expense-prediction" class="prediction expense-category-preview" role="status" aria-live="polite">
+
+                <div class="expense-category-preview-head">
+
+                    <div>
+
+                        <div class="prediction-label" id="expense-prediction-title">✓ Категорію підібрано</div>
+
+                        <div id="expense-prediction-result" class="prediction-result">—</div>
+
+                    </div>
+
+                    <button
+
+                        type="button"
+
+                        class="expense-change-category"
+
+                        id="expense-change-category"
+
+                        aria-expanded="false"
+
+                        aria-controls="expense-category-picker"
+
+                        onclick="toggleExpenseCategoryPicker()"
+
+                    >Змінити</button>
+
+                </div>
+
+                <div id="expense-prediction-saving" class="prediction-saving"></div>
+
+            </div>
+
+            <!-- Вибір вручну відкривається лише за бажанням -->
+
+            <div id="expense-category-picker" class="expense-category-picker" hidden>
+
+                <div class="expense-picker-heading">Вибери категорію</div>
+
+                <div id="expense-main-categories" class="expense-category-grid"></div>
+
+                <div class="expense-picker-heading expense-sub-heading">Уточни підкатегорію</div>
+
+                <div id="expense-subcategory-chips" class="expense-subcategory-chips"></div>
+
+                <label class="expense-remember-option" for="expense-remember-rule">
+
+                    <input type="checkbox" id="expense-remember-rule" checked>
+
+                    <span>Запам’ятати цей вибір для такої назви</span>
+
+                </label>
+
+                <button class="expense-reset-category" type="button" onclick="resetExpenseCategory()">
+
+                    ↻ Повернути автовизначення
+
+                </button>
+
+            </div>
+
+            <!-- Службове поле для наявної логіки збереження -->
+
+            <select id="expense-category-select" hidden aria-hidden="true" tabindex="-1"></select>
+
+            <!-- ОЧ: як у попередній версії, доступна без додаткових меню -->
+
+            <div class="installment-toggle expense-oc-toggle">
+
+                        <div>
+
+                            <strong>💳 Це оплата частинами?</strong>
+
+                            <small>Для великих покупок · враховуємо лише оплачені платежі</small>
+
+                        </div>
+
+                        <label class="switch">
+
+                            <input id="expense-installment" type="checkbox" onchange="toggleInstallmentFields()">
+
+                            <span class="switch-slider"></span>
+
+                        </label>
+
+                    </div>
+
+            <!-- INSTALLMENT FIELDS -->
+
+            <div id="installment-fields" class="installment-fields">
+
+                <label class="form-label">
+
+                    Банк
+
+                </label>
+
+                <div class="bank-selector">
+
+                    <button
+
+                        type="button"
+
+                        class="bank-option"
+
+                        data-bank="mono"
+
+                        onclick="selectInstallmentBank('mono')"
+
+                    >
+
+                        <span class="bank-option-icon">m</span>
+
+                        <span class="bank-option-name">Monobank</span>
+
+                    </button>
+
+                    <button
+
+                        type="button"
+
+                        class="bank-option"
+
+                        data-bank="privat"
+
+                        onclick="selectInstallmentBank('privat')"
+
+                    >
+
+                        <span class="bank-option-icon">P</span>
+
+                        <span class="bank-option-name">Приват</span>
+
+                    </button>
+
+                    <button
+
+                        type="button"
+
+                        class="bank-option"
+
+                        data-bank="pumb"
+
+                        onclick="selectInstallmentBank('pumb')"
+
+                    >
+
+                        <span class="bank-option-icon">П</span>
+
+                        <span class="bank-option-name">ПУМБ</span>
+
+                    </button>
+
+                </div>
+
+                <label class="form-label">
+
+                    Термін
+
+                </label>
+
+                <select
+
+                    id="installment-term"
+
+                    class="form-input"
+
+                    onchange="updateInstallmentPreview()"
+
+                >
+
+                    <option value="">
+
+                        Обери термін
+
+                    </option>
+
+                    <option value="2">2 місяці</option>
+
+                    <option value="3">3 місяці</option>
+
+                    <option value="4">4 місяці</option>
+
+                    <option value="5">5 місяців</option>
+
+                    <option value="6">6 місяців</option>
+
+                    <option value="7">7 місяців</option>
+
+                    <option value="8">8 місяців</option>
+
+                    <option value="9">9 місяців</option>
+
+                    <option value="10">10 місяців</option>
+
+                    <option value="11">11 місяців</option>
+
+                    <option value="12">12 місяців</option>
+
+                    <option value="13">13 місяців</option>
+
+                    <option value="14">14 місяців</option>
+
+                    <option value="15">15 місяців</option>
+
+                    <option value="16">16 місяців</option>
+
+                    <option value="17">17 місяців</option>
+
+                    <option value="18">18 місяців</option>
+
+                    <option value="19">19 місяців</option>
+
+                    <option value="20">20 місяців</option>
+
+                    <option value="21">21 місяць</option>
+
+                    <option value="22">22 місяці</option>
+
+                    <option value="23">23 місяці</option>
+
+                    <option value="24">24 місяці</option>
+
+                </select>
+
+                <div id="installment-preview" class="installment-preview" style="display:none;">
+
+                    <span class="installment-preview-label">
+
+                        Щомісячний платіж
+
+                    </span>
+
+                    <strong id="installment-monthly-payment" class="installment-preview-value">
+
+                        —
+
+                    </strong>
+
+                </div>
+
+            </div>
+
+            <button
+
+                class="primary-button large"
+
+                onclick="saveExpense()"
+
+            >
+
+                Додати витрату
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- =========================================================
+
+     INCOME MODAL
+
+========================================================= -->
+
+<div
+
+    id="income-modal"
+
+    class="modal"
+
+>
+
+    <div
+
+        class="modal-backdrop"
+
+        onclick="closeModal('income-modal')"
+
+    ></div>
+
+    <div class="modal-content">
+
+        <div class="modal-handle"></div>
+
+        <div class="modal-header">
+
+            <h2>
+
+                Новий дохід
+
+            </h2>
+
+            <button
+
+                class="modal-close"
+
+                onclick="closeModal('income-modal')"
+
+            >
+
+                ×
+
+            </button>
+
+        </div>
+
+        <div class="modal-body">
+
+            <label class="form-label">
+
+                Сума
+
+            </label>
+
+            <div class="amount-input-wrapper">
+
+                <input
+
+                    id="income-amount"
+
+                    type="text"
+
+                    inputmode="decimal"
+
+                    autocomplete="off"
+
+                    placeholder="0"
+
+                >
+
+                <span>
+
+                    ₴
+
+                </span>
+
+            </div>
+
+            <label class="form-label">
+
+                Опис
+
+            </label>
+
+            <input
+
+                id="income-description"
+
+                class="form-input"
+
+                type="text"
+
+                placeholder="Зарплата, стипендія..."
+
+            >
+
+            <label class="form-label">Дата</label>
+
+            <input id="income-date" class="form-input" type="date">
+
+            <button
+
+                class="primary-button large"
+
+                onclick="saveIncome()"
+
+            >
+
+                Додати дохід
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- =========================================================
+
+     DETAILS MODAL
+
+========================================================= -->
+
+<div
+
+    id="details-modal"
+
+    class="modal"
+
+>
+
+    <div
+
+        class="modal-backdrop"
+
+        onclick="closeModal('details-modal')"
+
+    ></div>
+
+    <div class="modal-content">
+
+        <div class="modal-handle"></div>
+
+        <div class="modal-header">
+
+            <h2>
+
+                Деталі
+
+            </h2>
+
+            <button
+
+                class="modal-close"
+
+                onclick="closeModal('details-modal')"
+
+            >
+
+                ×
+
+            </button>
+
+        </div>
+
+        <div
+
+            id="transaction-details"
+
+            class="modal-body"
+
+        >
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- =========================================================
+
+     BUDGET MODAL
+
+========================================================= -->
+
+<div
+
+    id="budget-modal"
+
+    class="modal"
+
+>
+
+    <div
+
+        class="modal-backdrop"
+
+        onclick="closeModal('budget-modal')"
+
+    ></div>
+
+    <div class="modal-content">
+
+        <div class="modal-handle"></div>
+
+        <div class="modal-header">
+
+            <h2>
+
+                Місячний бюджет
+
+            </h2>
+
+            <button
+
+                class="modal-close"
+
+                onclick="closeModal('budget-modal')"
+
+            >
+
+                ×
+
+            </button>
+
+        </div>
+
+        <div class="modal-body">
+
+            <label class="form-label">
+
+                Сума бюджету
+
+            </label>
+
+            <div class="amount-input-wrapper">
+
+                <input
+
+                    id="budget-amount"
+
+                    type="text"
+
+                    inputmode="decimal"
+
+                    autocomplete="off"
+
+                    placeholder="15000"
+
+                >
+
+                <span>
+
+                    ₴
+
+                </span>
+
+            </div>
+
+            <button
+
+                class="primary-button large"
+
+                onclick="saveBudget()"
+
+            >
+
+                Зберегти бюджет
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- =========================================================
+
+     GOAL MODAL
+
+========================================================= -->
+
+<div
+
+    id="goal-modal"
+
+    class="modal"
+
+>
+
+    <div
+
+        class="modal-backdrop"
+
+        onclick="closeModal('goal-modal')"
+
+    ></div>
+
+    <div class="modal-content">
+
+        <div class="modal-handle"></div>
+
+        <div class="modal-header">
+
+            <h2>
+
+                Нова ціль
+
+            </h2>
+
+            <button
+
+                class="modal-close"
+
+                onclick="closeModal('goal-modal')"
+
+            >
+
+                ×
+
+            </button>
+
+        </div>
+
+        <div class="modal-body">
+
+            <label class="form-label">
+
+                Назва цілі
+
+            </label>
+
+            <input
+
+                id="goal-name"
+
+                class="form-input"
+
+                type="text"
+
+                placeholder="Наприклад: BMW 328i"
+
+            >
+
+            <label class="form-label">
+
+                Скільки потрібно?
+
+            </label>
+
+            <div class="amount-input-wrapper">
+
+                <input
+
+                    id="goal-target"
+
+                    type="text"
+
+                    inputmode="decimal"
+
+                    autocomplete="off"
+
+                    placeholder="200000"
+
+                >
+
+                <span>
+
+                    ₴
+
+                </span>
+
+            </div>
+
+            <button
+
+                class="primary-button large"
+
+                onclick="saveGoal()"
+
+            >
+
+                Створити ціль
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- =========================================================
+
+     ADD MONEY TO GOAL MODAL
+
+========================================================= -->
+
+<div
+
+    id="goal-money-modal"
+
+    class="modal"
+
+>
+
+    <div
+
+        class="modal-backdrop"
+
+        onclick="closeModal('goal-money-modal')"
+
+    ></div>
+
+    <div class="modal-content">
+
+        <div class="modal-handle"></div>
+
+        <div class="modal-header">
+
+            <h2>
+
+                Поповнити ціль
+
+            </h2>
+
+            <button
+
+                class="modal-close"
+
+                onclick="closeModal('goal-money-modal')"
+
+            >
+
+                ×
+
+            </button>
+
+        </div>
+
+        <div class="modal-body">
+
+            <div
+
+                id="goal-money-name"
+
+                class="goal-money-title"
+
+            >
+
+                Ціль
+
+            </div>
+
+            <label class="form-label">
+
+                Сума
+
+            </label>
+
+            <div class="amount-input-wrapper">
+
+                <input
+
+                    id="goal-money-amount"
+
+                    type="text"
+
+                    inputmode="decimal"
+
+                    autocomplete="off"
+
+                    placeholder="1000"
+
+                >
+
+                <span>
+
+                    ₴
+
+                </span>
+
+            </div>
+
+            <button
+
+                class="primary-button large"
+
+                onclick="addMoneyToGoal()"
+
+            >
+
+                Поповнити
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- =========================================================
+
+     INSTALLMENT INFO MODAL
+
+========================================================= -->
+
+<div
+
+    id="installment-info-modal"
+
+    class="modal"
+
+>
+
+    <div
+
+        class="modal-backdrop"
+
+        onclick="closeModal('installment-info-modal')"
+
+    ></div>
+
+    <div class="modal-content">
+
+        <div class="modal-handle"></div>
+
+        <div class="modal-header">
+
+            <h2>
+
+                Оплата частинами
+
+            </h2>
+
+            <button
+
+                class="modal-close"
+
+                onclick="closeModal('installment-info-modal')"
+
+            >
+
+                ×
+
+            </button>
+
+        </div>
+
+        <div
+
+            id="installment-info-content"
+
+            class="modal-body"
+
+        >
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- =========================================================
+
+     EDIT MODAL
+
+========================================================= -->
+
+<div id="edit-modal" class="modal">
+
+    <div class="modal-backdrop" onclick="closeModal('edit-modal')"></div>
+
+    <div class="modal-content">
+
+        <div class="modal-handle"></div>
+
+        <div class="modal-header">
+
+            <h2 id="edit-title">Редагувати</h2>
+
+            <button class="modal-close" onclick="closeModal('edit-modal')">×</button>
+
+        </div>
+
+        <div class="modal-body">
+
+            <label class="form-label">Сума</label>
+
+            <div class="amount-input-wrapper">
+
+                <input id="edit-amount" type="text" inputmode="decimal" autocomplete="off" placeholder="0">
+
+                <span>₴</span>
+
+            </div>
+
+            <label class="form-label">Опис</label>
+
+            <input id="edit-description" class="form-input" type="text" autocomplete="off">
+
+            <div id="edit-category-group">
+
+                <label class="form-label">Категорія</label>
+
+                <select id="edit-category-select" class="form-input"></select>
+
+            </div>
+
+            <label class="form-label">Дата</label>
+
+            <input id="edit-date" class="form-input" type="date">
+
+            <button class="primary-button large" onclick="saveEditedTransaction()">
+
+                Зберегти зміни
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- =========================================================
+
+     TOAST
+
+========================================================= -->
+
+<div
+
+    id="toast"
+
+    class="toast"
+
+>
+
+    <span id="toast-icon" class="toast-icon">
+
+        ✓
+
+    </span>
+
+    <span id="toast-message" class="toast-message">
+
+        Готово
+
+    </span>
+
+    <button id="toast-action" class="toast-action" type="button" style="display:none;"></button>
+
+</div>
+
+<!-- =========================================================
+
+     SCRIPTS
+
+========================================================= -->
+
+<script src="app.js"></script>
+
+</body>
+
+</html>
+
